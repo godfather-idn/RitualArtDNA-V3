@@ -1,0 +1,49 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-46963fa4b94e1764041e7933e0ab41cf20d9f58d",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "toolVersions": {
+    "hardhat": "3.9.0"
+  },
+  "userSourceNameMap": {
+    "contracts/RitualArtworkRegistry.sol": "project/contracts/RitualArtworkRegistry.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode.linkReferences",
+            "evm.bytecode.object",
+            "evm.bytecode.opcodes",
+            "evm.bytecode.sourceMap",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.opcodes",
+            "evm.deployedBytecode.sourceMap",
+            "evm.methodIdentifiers"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/RitualArtworkRegistry.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.28;\r\n\r\ncontract RitualArtworkRegistry {\r\n\r\n    struct Artwork {\r\n        string dna;\r\n        string title;\r\n        string artist;\r\n        address owner;\r\n        uint256 timestamp;\r\n    }\r\n\r\n    Artwork[] public artworks;\r\n\r\n    event ArtworkRegistered(\r\n        string dna,\r\n        string title,\r\n        string artist,\r\n        address owner,\r\n        uint256 timestamp\r\n    );\r\n\r\n    function registerArtwork(\r\n        string memory _dna,\r\n        string memory _title,\r\n        string memory _artist\r\n    ) public {\r\n\r\n        Artwork memory newArtwork =\r\n            Artwork({\r\n                dna: _dna,\r\n                title: _title,\r\n                artist: _artist,\r\n                owner: msg.sender,\r\n                timestamp: block.timestamp\r\n            });\r\n\r\n        artworks.push(newArtwork);\r\n\r\n        emit ArtworkRegistered(\r\n            _dna,\r\n            _title,\r\n            _artist,\r\n            msg.sender,\r\n            block.timestamp\r\n        );\r\n    }\r\n\r\n    function getArtwork(\r\n        uint256 index\r\n    )\r\n        public\r\n        view\r\n        returns (\r\n            string memory,\r\n            string memory,\r\n            string memory,\r\n            address,\r\n            uint256\r\n        )\r\n    {\r\n        Artwork memory art =\r\n            artworks[index];\r\n\r\n        return (\r\n            art.dna,\r\n            art.title,\r\n            art.artist,\r\n            art.owner,\r\n            art.timestamp\r\n        );\r\n    }\r\n\r\n    function totalArtworks()\r\n        public\r\n        view\r\n        returns (uint256)\r\n    {\r\n        return artworks.length;\r\n    }\r\n}"
+      }
+    }
+  }
+}
